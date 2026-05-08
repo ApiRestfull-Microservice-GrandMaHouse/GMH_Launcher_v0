@@ -4,10 +4,19 @@
   "files": [],
   "references": [
     {
-      "path": "./apps/GMH_Launcher_V0-e2e"
+      "path": "./shared"
     },
     {
-      "path": "./apps/GMH_Launcher_V0"
+      "path": "./apps/api-gateway-e2e"
+    },
+    {
+      "path": "./apps/api-gateway"
+    },
+    {
+      "path": "./apps/users-service-e2e"
+    },
+    {
+      "path": "./apps/users-service"
     }
   ]
 }
