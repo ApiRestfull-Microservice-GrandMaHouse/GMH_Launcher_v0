@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compileOnSave": false,
+  "files": [],
+  "references": [
+    {
+      "path": "./apps/GMH_Launcher_V0-e2e"
+    },
+    {
+      "path": "./apps/GMH_Launcher_V0"
+    }
+  ]
+}
