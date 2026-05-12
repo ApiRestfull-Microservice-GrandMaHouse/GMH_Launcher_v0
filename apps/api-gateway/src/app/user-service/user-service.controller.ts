@@ -1,7 +1,7 @@
 import { NATS_SERVICE, UserPatterns } from '@mi-app/shared/constants';
 import {
   CreateUserDto,
-  GetUserDto,
+  PaginationUserDto,
   UpdateUserDto,
 } from '@mi-app/shared/dtos/users';
 import {
@@ -23,7 +23,7 @@ export class AuthController {
   constructor(@Inject(NATS_SERVICE) private readonly client: ClientProxy) {}
 
   @Get()
-  getUsers(@Body() getUserDto: GetUserDto) {
+  getUsers(@Body() getUserDto: PaginationUserDto) {
     return this.client.send({ cmd: UserPatterns.FIND_ALL }, getUserDto).pipe(
       catchError((err) => {
         throw new RpcException(err);

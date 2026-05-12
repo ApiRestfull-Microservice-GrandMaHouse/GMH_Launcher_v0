@@ -1,0 +1,22 @@
+services:
+  nats:
+    image: nats:2.14.0-alpine
+    container_name: gmh_nats
+    ports:
+      - '4222:4222' # Cliente
+      #- '8222:8222'  # Monitor HTTP
+
+  postgres_users:
+    image: postgres:17
+    container_name: gmh_postgres_users
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
