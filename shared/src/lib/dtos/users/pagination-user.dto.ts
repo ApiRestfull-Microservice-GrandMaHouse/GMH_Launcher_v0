@@ -1,15 +1,12 @@
-import { Type } from 'class-transformer';
-import { IsOptional, IsPositive } from 'class-validator';
+import { IsBoolean, IsOptional, IsString } from 'class-validator';
+import { PaginationDto } from '../pagination.dto';
 
-export class PaginationUserDto {
-  @IsPositive()
-  @IsOptional()
-  @Type(() => Number)
-  readonly page: number = 1;
-  @IsPositive()
-  @IsOptional()
-  @Type(() => Number)
-  readonly limit: number = 10;
-  /*@IsOptional()
-  readonly cursor: string;*/
+export class PaginationUserDto extends PaginationDto {
+@IsOptional()
+@IsString()
+readonly search?: string;
+
+@IsOptional()
+@IsBoolean() // O IsEnum si tienes varios roles
+readonly isActive?: boolean;
 }
