@@ -12,6 +12,18 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "default": "./dist/index.js"
+    },
+    "./dtos/*": {
+      "@gmh-launcher-v0/source": "./src/lib/dtos/*/index.ts",
+      "types": "./dist/lib/dtos/*/index.ts",
+      "import": "./dist/lib/dtos/*/index.ts",
+      "default": "./dist/lib/dtos/*/index.js"
+    },
+    "./constants": {
+      "@gmh-launcher-v0/source": "./src/lib/constants/index.ts",
+      "types": "./dist/lib/constants/index.d.ts",
+      "import": "./dist/lib/constants/index.js",
+      "default": "./dist/lib/constants/index.js"
     }
   },
   "dependencies": {
