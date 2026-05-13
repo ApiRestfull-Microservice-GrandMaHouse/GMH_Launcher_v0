@@ -1,0 +1,104 @@
+name: Deploy users-service
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'apps/users-service/**'
+      - 'shared/**'
+      - 'docker-users-service.Dockerfile'
+      - '.github/workflows/users-service.yml'
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:          
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Nx Linux native addon
+        run: npm install --no-save @nx/nx-linux-x64-gnu@22.7.1
+
+      - name: Create minimal nx config for CI
+        run: |
+          cat > nx.json << 'EOF'
+          {
+            "$schema": "./node_modules/nx/schemas/nx-schema.json",
+            "namedInputs": {
+              "default": ["{projectRoot}/**/*", "sharedGlobals"],
+              "production": ["default"],
+              "sharedGlobals": []
+            },
+            "plugins": [
+              {
+                "plugin": "@nx/js/typescript",
+                "options": {
+                  "typecheck": { "targetName": "typecheck" },
+                  "build": {
+                    "targetName": "build",
+                    "configName": "tsconfig.lib.json",
+                    "buildDepsName": "build-deps",
+                    "watchDepsName": "watch-deps"
+                  }
+                }
+              },
+              {
+                "plugin": "@nx/webpack/plugin",
+                "options": {
+                  "buildTargetName": "build",
+                  "serveTargetName": "serve",
+                  "previewTargetName": "preview",
+                  "buildDepsTargetName": "build-deps",
+                  "watchDepsTargetName": "watch-deps"
+                }
+              }
+            ]
+          }
+          EOF
+
+      - name: Build shared library
+        run: npx nx build @mi-app/shared --skip-nx-cache
+        env:
+          NX_DAEMON: false
+          NX_DISABLE_DB: true
+
+      - name: Build users-service
+        run: npx nx build users-service --prod --skip-nx-cache
+        env:
+          NX_DAEMON: false
+          NX_DISABLE_DB: true
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set lowercase owner
+        run: echo "OWNER=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: docker-users-service.Dockerfile
+          push: true
+          tags: ghcr.io/${{ env.OWNER }}/users-service:latest
+
+
+      

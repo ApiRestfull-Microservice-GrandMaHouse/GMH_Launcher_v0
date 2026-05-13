@@ -10,6 +10,7 @@ import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { envs } from './app/config';
 
 async function bootstrap() {
+  // Comentario de prueba para Github Workflows - Parte 4
   const logger = new Logger('users-service');
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,

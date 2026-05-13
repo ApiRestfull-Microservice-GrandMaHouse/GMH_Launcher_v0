@@ -13,11 +13,11 @@
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     },
-    "./dtos/*": {
-      "@gmh-launcher-v0/source": "./src/lib/dtos/*/index.ts",
-      "types": "./dist/lib/dtos/*/index.ts",
-      "import": "./dist/lib/dtos/*/index.ts",
-      "default": "./dist/lib/dtos/*/index.js"
+    "./dtos/users": {
+      "@gmh-launcher-v0/source": "./src/lib/dtos/users/index.ts",
+      "types": "./dist/lib/dtos/users/index.d.ts",
+      "import": "./dist/lib/dtos/users/index.js",
+      "default": "./dist/lib/dtos/users/index.js"
     },
     "./constants": {
       "@gmh-launcher-v0/source": "./src/lib/constants/index.ts",
