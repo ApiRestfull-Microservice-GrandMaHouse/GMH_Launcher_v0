@@ -7,6 +7,10 @@ COPY package.json package-lock.json ./
 
 RUN npm ci
 
+# Ensure the Nx native addon for Linux x64 is installed
+# (may be missing from package-lock.json if generated on macOS)
+RUN npm install --no-save @nx/nx-linux-x64-gnu@22.7.1 || true
+
 COPY . .
 
 ENV NX_DAEMON=false
