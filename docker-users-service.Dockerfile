@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # Instalar todas las dependencias (necesarias para el build de Nx)
-RUN npm ci
+RUN npm ci --ignore-scripts
 
 # Copiar el monorepo completo
 COPY . .
@@ -16,7 +16,7 @@ COPY . .
 ENV NX_DAEMON=false
 
 # Build solo del users-service (Nx solo compila lo necesario)
-RUN npx nx build users-service --prod
+RUN npx nx build users-service --prod --skip-nx-cache
 
 # ---- Stage 2: Runtime ----
 FROM node:22-alpine AS runner
