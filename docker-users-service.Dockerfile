@@ -5,11 +5,11 @@ WORKDIR /app
 
 COPY package.json package-lock.json ./
 
-RUN npm ci
-
-# Ensure the Nx native addon for Linux x64 is installed
-# (may be missing from package-lock.json if generated on macOS)
-RUN npm install --no-save @nx/nx-linux-x64-gnu@22.7.1 || true
+# Use npm install instead of npm ci so that npm resolves
+# platform-specific optional dependencies (e.g. @nx/nx-linux-x64-gnu)
+# for the Linux build environment, even if the lockfile was
+# generated on macOS.
+RUN npm install
 
 COPY . .
 
