@@ -12,6 +12,9 @@ RUN npm ci
 # Copiar el monorepo completo
 COPY . .
 
+# Desactivar Nx Daemon en CI
+ENV NX_DAEMON=false
+
 # Build solo del users-service (Nx solo compila lo necesario)
 RUN npx nx build users-service --prod
 
