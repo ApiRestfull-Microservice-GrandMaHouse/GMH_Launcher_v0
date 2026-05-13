@@ -10,4 +10,5 @@ docker compose ps
 
 docker compose logs -f
 
-docker compose up -d
+# Build 
+docker build -f api-gateway.Dockerfile -t api-gateway .
