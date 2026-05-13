@@ -1,5 +1,5 @@
 # ---- Stage 1: Build ----
-FROM node:22-alpine AS builder
+FROM node:22 AS builder
 
 WORKDIR /app
 
@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # Instalar todas las dependencias (necesarias para el build de Nx)
-RUN npm ci --ignore-scripts
+RUN npm ci
 
 # Copiar el monorepo completo
 COPY . .
@@ -16,7 +16,7 @@ COPY . .
 ENV NX_DAEMON=false
 
 # Build solo del api-gateway (Nx solo compila lo necesario)
-RUN npx nx build users-service --prod --skip-nx-cache
+RUN npx nx build api-gateway --prod --skip-nx-cache
 
 # ---- Stage 2: Runtime ----
 FROM node:22-alpine AS runner
