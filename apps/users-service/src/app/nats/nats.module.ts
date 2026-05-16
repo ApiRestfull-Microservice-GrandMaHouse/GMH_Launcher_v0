@@ -1,8 +1,7 @@
-
-import { NATS_SERVICE } from "@mi-app/shared/constants";
-import { Module } from "@nestjs/common";
-import { ClientsModule, Transport } from "@nestjs/microservices";
-import { envs } from "../config";
+import { NATS_SERVICE } from '@mi-app/shared/constants';
+import { Module } from '@nestjs/common';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+import { envs } from '../config';
 
 @Module({
   imports: [

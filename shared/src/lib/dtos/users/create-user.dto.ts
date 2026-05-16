@@ -1,4 +1,9 @@
-import { IsOptional, IsPhoneNumber, IsString, IsStrongPassword } from 'class-validator';
+import {
+  IsOptional,
+  IsPhoneNumber,
+  IsString,
+  IsStrongPassword,
+} from 'class-validator';
 
 export class CreateUserDto {
   @IsOptional()
