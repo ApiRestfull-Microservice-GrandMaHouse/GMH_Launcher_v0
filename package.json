@@ -2,13 +2,19 @@
   "name": "@gmh-launcher-v0/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "prisma:generate:users": "cd apps/users-service && npx prisma generate",
+    "prisma:generate:orders": "cd apps/orders-service && npx prisma generate",
+    "prisma:generate:all": "npm run prisma:generate:users && npm run prisma:generate:orders"
+  },
   "private": true,
   "dependencies": {
     "@nestjs/common": "^11.0.0",
     "@nestjs/core": "^11.0.0",
     "@nestjs/microservices": "^11.1.19",
     "@nestjs/platform-express": "^11.0.0",
+    "@prisma/adapter-pg": "^7.8.0",
+    "@prisma/client": "^7.8.0",
     "axios": "^1.6.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.15.1",
@@ -44,6 +50,7 @@
     "jest-util": "^30.0.2",
     "nx": "22.7.1",
     "prettier": "~3.6.2",
+    "prisma": "^7.8.0",
     "ts-jest": "^29.4.0",
     "ts-node": "10.9.1",
     "tslib": "^2.3.0",

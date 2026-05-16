@@ -1,10 +1,12 @@
 import { IsOptional, IsPhoneNumber, IsString, IsStrongPassword } from 'class-validator';
 
 export class CreateUserDto {
+  @IsOptional()
   @IsString()
-  name!: string;
+  name?: string;
+  @IsOptional()
   @IsString()
-  lastName!: string;
+  lastName?: string;
   @IsString()
   email!: string;
   @IsString()
@@ -13,5 +15,5 @@ export class CreateUserDto {
   @IsOptional()
   @IsString()
   @IsPhoneNumber()
-  phone!: string;
+  phone?: string;
 }
